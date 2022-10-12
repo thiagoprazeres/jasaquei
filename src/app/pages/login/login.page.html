@@ -8,18 +8,24 @@
     <ion-item>
       <ion-label position="fixed">Login</ion-label>
       <ion-input name="login" formControlName="login" type="text" maxlength="120" required></ion-input>
-      <ion-note *ngIf="login.invalid && (login.dirty || login.touched) && login.errors?.['required']" slot="error">Campo obrigatório</ion-note>
+      <ion-note *ngIf="login.invalid && (login.dirty || login.touched) && login.errors?.['required']" slot="error">Campo
+        obrigatório</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">Senha</ion-label>
-      <ion-input id="password" name="password" formControlName="password" type="password" maxlength="120" required></ion-input>
-      <ion-note *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.['required']" slot="error">Campo obrigatório</ion-note>
+      <ion-input id="password" name="password" formControlName="password" type="password" maxlength="120" required>
+      </ion-input>
+      <ion-note *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.['required']"
+        slot="error">Campo obrigatório</ion-note>
     </ion-item>
     <div class="ion-padding">
-      <ion-text color="danger" class="ion-text-center" *ngIf="mensagem != ''">
-        <p>{{mensagem}}</p>
-      </ion-text>
-      <ion-button type="submit" expand="block" color="primary" [disabled]="loading || (loginForm.touched && loginForm.invalid)">{{!loading ? 'Entrar' : 'Entrando'}}
+      <p class="ion-text-center" *ngIf="mensagem != ''">
+        <ion-text color="danger">
+          <ion-icon name="warning"></ion-icon> {{mensagem}}
+        </ion-text>
+      </p>
+      <ion-button type="submit" expand="block" color="primary"
+        [disabled]="loading || (loginForm.touched && loginForm.invalid)">{{!loading ? 'Entrar' : 'Entrando'}}
       </ion-button>
     </div>
   </form>
