@@ -1,15 +1,17 @@
-<ion-content class="ion-padding">
-  <ion-text>
-    <h1>Saquei</h1>
-  </ion-text>
+<ion-content>
+  <div class="ion-padding">
+    <ion-text>
+      <h1>Saquei</h1>
+    </ion-text>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-item>
       <ion-label position="fixed">Login</ion-label>
-      <ion-input name="login" formControlName="login" type="text" maxlength="19"></ion-input>
+      <ion-input name="login" formControlName="login" type="text" maxlength="120"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">Senha</ion-label>
-      <ion-input name="password" formControlName="password" type="password"></ion-input>
+      <ion-input name="password" formControlName="password" type="password" maxlength="120"></ion-input>
     </ion-item>
     <div class="ion-padding">
       <ion-button type="submit" expand="block" color="primary">Entrar</ion-button>
