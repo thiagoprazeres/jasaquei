@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/interfaces/login-form';
+import { AuthService } from 'src/app/services/auth.service';
+
+export interface Token {
+  token: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -8,37 +14,31 @@ import { LoginForm } from 'src/app/interfaces/login-form';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  loading = false;
+  mensagem = '';
 
   loginForm = new FormGroup<LoginForm>({
-    login: new FormControl('', { nonNullable: true }),
-    password: new FormControl('', { nonNullable: true }),
+    login: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  login() {
+  get login() {return this.loginForm.get('login');}
+  get password() {return this.loginForm.get('password');}
 
-    const myHeaders: Headers = new Headers();
-    myHeaders.append("x-login", this.loginForm.value.login);
-    myHeaders.append("x-password", this.loginForm.value.password);
-    myHeaders.append("Cookie", "SRVGROUP=common");
-
-    const requestOptions: RequestInit = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-
-    fetch("https://api.jasaquei.com.br/GetAccessTokenWebMobile", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => {
-        console.log('error', error);
-        alert('Ocorreu um erro! Tente novamente');
-      });
+  getAccessToken() {
+    this.authService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe((data: Token) => {
+      console.log(data);
+      this.router.navigateByUrl('/tabs/tab1');
+    }, (error) => {
+      this.loading = false;
+      this.mensagem = error.error.mensagem;
+    }, () => this.loading = false
+    );
   }
 
 }

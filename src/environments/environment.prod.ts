@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  webapiurl: 'https://api.jasaquei.com.br'
 };
