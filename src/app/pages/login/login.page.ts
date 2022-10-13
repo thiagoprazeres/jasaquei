@@ -35,8 +35,13 @@ export class LoginPage implements OnInit {
       console.log(data);
       this.router.navigateByUrl('/tabs/tab1');
     }, (error) => {
+      console.error(error);
       this.loading = false;
-      this.mensagem = error.error.mensagem;
+      if(error.error.mensagem) {
+        this.mensagem = error.error.mensagem;
+      }else if(error.message) {
+        this.mensagem = error.message;
+      }
     }, () => this.loading = false
     );
   }
