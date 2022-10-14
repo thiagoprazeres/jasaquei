@@ -8,7 +8,7 @@ import { Auth } from '../interfaces/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private auth: Auth;
+  private auth: Auth | null = null;
   private _storage: Storage | null = null;
 
   constructor(private http: HttpClient, private storage: Storage) {
@@ -18,6 +18,10 @@ export class AuthService {
   async init() {
     const storage = await this.storage.create();
     this._storage = storage;
+  }
+
+  isAuthenticated() {
+    return this.auth !== null;
   }
 
   getAccessToken(xLogin, password) {

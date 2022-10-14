@@ -18,14 +18,12 @@ export class Tab1Page {
   extratoPositivoNegativo: ExtratoPositivoNegativo;
   auth: Auth;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService) {
     if (this.authService.getAuth()) {
       this.authService.getAuth().then((auth: Auth) => {
         this.auth = auth;
         this.authService.getExtratoPositivoNegativo().subscribe((extratoPositivoNegativo: ExtratoPositivoNegativo) => this.extratoPositivoNegativo = extratoPositivoNegativo);
       }).catch(error => console.error(error));
-    } else {
-      this.router.navigateByUrl('/login');
     }
   }
 
