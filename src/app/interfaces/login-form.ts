@@ -2,6 +2,6 @@
 import { FormControl } from '@angular/forms';
 
 export interface LoginForm {
-    login: FormControl<string>;
+    xLogin: FormControl<string>;
     password: FormControl<string>;
 }

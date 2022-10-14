@@ -4,11 +4,11 @@
       <h1>Saquei</h1>
     </ion-text>
   </div>
-  <form [formGroup]="loginForm" (ngSubmit)="loading = true;getAccessToken()">
+  <form [formGroup]="loginForm" (ngSubmit)="loading = true;login()">
     <ion-item>
       <ion-label position="fixed">Login</ion-label>
-      <ion-input name="login" formControlName="login" type="text" maxlength="120" required></ion-input>
-      <ion-note *ngIf="login.invalid && (login.dirty || login.touched) && login.errors?.['required']" slot="error">Campo
+      <ion-input name="xLogin" formControlName="xLogin" type="text" maxlength="120" required></ion-input>
+      <ion-note *ngIf="xLogin.invalid && (xLogin.dirty || xLogin.touched) && xLogin.errors?.['required']" slot="error">Campo
         obrigatório</ion-note>
     </ion-item>
     <ion-item>

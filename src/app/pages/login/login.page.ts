@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Auth } from 'src/app/interfaces/auth';
 import { LoginForm } from 'src/app/interfaces/login-form';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,8 +19,8 @@ export class LoginPage implements OnInit {
   mensagem = '';
 
   loginForm = new FormGroup<LoginForm>({
-    login: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    xLogin: new FormControl('04305097400', Validators.required),
+    password: new FormControl('1234567890', Validators.required),
   });
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -27,19 +28,20 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  get login() {return this.loginForm.get('login');}
-  get password() {return this.loginForm.get('password');}
+  get xLogin() { return this.loginForm.get('xLogin'); }
+  get password() { return this.loginForm.get('password'); }
 
-  getAccessToken() {
-    this.authService.login(this.loginForm.value.login, this.loginForm.value.password).subscribe((data: Token) => {
-      console.log(data);
+  login() {
+    this.authService.getAccessToken(this.loginForm.value.xLogin, this.loginForm.value.password).subscribe((data: Token) => {
+      const auth: Auth = {token: data.token, xPessoa: this.loginForm.value.xLogin};
+      this.authService.setAuth(auth);
       this.router.navigateByUrl('/tabs/tab1');
     }, (error) => {
       console.error(error);
       this.loading = false;
-      if(error.error.mensagem) {
+      if (error.error.mensagem) {
         this.mensagem = error.error.mensagem;
-      }else if(error.message) {
+      } else if (error.message) {
         this.mensagem = error.message;
       }
     }, () => this.loading = false
