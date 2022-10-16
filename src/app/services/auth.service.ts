@@ -3,25 +3,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Storage } from '@ionic/storage-angular';
 import { Auth } from '../interfaces/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   private auth: Auth | null = null;
   private _storage: Storage | null = null;
 
   constructor(private http: HttpClient, private storage: Storage) {
-    this.init();
+    this.loadAuth();
   }
 
-  async init() {
+  async loadAuth() {
     const storage = await this.storage.create();
     this._storage = storage;
-  }
-
-  isAuthenticated() {
-    return this.auth !== null;
+    this.getAuth().then((auth: Auth) => {
+      if (auth && auth.token && auth.xPessoa) {
+        this.auth = auth;
+        this.isAuthenticated.next(true);
+      }
+      else {
+        this.isAuthenticated.next(false);
+      }
+    }, () => this.isAuthenticated.next(false));
   }
 
   getAccessToken(xLogin, password) {
@@ -37,6 +44,7 @@ export class AuthService {
   setAuth(auth: Auth) {
     this.auth = auth;
     this._storage?.set('auth', auth);
+    this.isAuthenticated.next(true);
   }
 
   getAuth(): Promise<Auth> {
