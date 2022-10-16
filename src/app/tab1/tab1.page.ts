@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Auth } from './../interfaces/auth';
 
@@ -19,12 +18,8 @@ export class Tab1Page {
   auth: Auth;
 
   constructor(private authService: AuthService) {
-    if (this.authService.getAuth()) {
-      this.authService.getAuth().then((auth: Auth) => {
-        this.auth = auth;
-        this.authService.getExtratoPositivoNegativo().subscribe((extratoPositivoNegativo: ExtratoPositivoNegativo) => this.extratoPositivoNegativo = extratoPositivoNegativo);
-      }).catch(error => console.error(error));
-    }
+    this.auth = this.authService.getAuth();
+    this.authService.getExtratoPositivoNegativo().subscribe((extratoPositivoNegativo: ExtratoPositivoNegativo) => this.extratoPositivoNegativo = extratoPositivoNegativo);
   }
 
 }

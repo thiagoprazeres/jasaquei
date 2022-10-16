@@ -1,34 +1,27 @@
-import { Injectable, Provider } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Storage } from '@ionic/storage-angular';
 import { Auth } from '../interfaces/auth';
-import { BehaviorSubject } from 'rxjs';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  public isAuthenticated: boolean;
   private auth: Auth | null = null;
-  private _storage: Storage | null = null;
 
-  constructor(private http: HttpClient, private storage: Storage) {
+  constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) {
     this.loadAuth();
   }
 
-  async loadAuth() {
-    const storage = await this.storage.create();
-    this._storage = storage;
-    this.getAuth().then((auth: Auth) => {
-      if (auth && auth.token && auth.xPessoa) {
-        this.auth = auth;
-        this.isAuthenticated.next(true);
-      }
-      else {
-        this.isAuthenticated.next(false);
-      }
-    }, () => this.isAuthenticated.next(false));
+  loadAuth() {
+    if (this.getAuth()) {
+      this.auth = this.getAuth();
+      this.isAuthenticated = true;
+    } else {
+      this.isAuthenticated = false;
+    }
   }
 
   getAccessToken(xLogin, password) {
@@ -43,12 +36,12 @@ export class AuthService {
 
   setAuth(auth: Auth) {
     this.auth = auth;
-    this._storage?.set('auth', auth);
-    this.isAuthenticated.next(true);
+    this.sessionStorageService.store('auth', auth);
+    this.isAuthenticated = true;
   }
 
-  getAuth(): Promise<Auth> {
-    return this._storage?.get('auth');
+  getAuth(): Auth {
+    return this.sessionStorageService.retrieve('auth');
   }
 
   getExtratoPositivoNegativo() {
