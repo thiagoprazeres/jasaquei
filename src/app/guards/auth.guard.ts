@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanLoad {
   constructor(private authService: AuthService, private router: Router) { }
   canLoad(): boolean {
-    if (this.authService.isAuthenticated) {
+    if (this.authService.isAuthenticated()) {
       return true;
     } else {
       this.router.navigateByUrl('/login');

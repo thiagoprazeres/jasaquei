@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 export class AutoLoginGuard implements CanLoad {
 	constructor(private authService: AuthService, private router: Router) { }
 	canLoad(): boolean {
-		if (this.authService.isAuthenticated) {
+		if (this.authService.isAuthenticated()) {
 			this.router.navigateByUrl('/tabs', { replaceUrl: true });
 		} else {
 			return true;

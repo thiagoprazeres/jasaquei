@@ -8,20 +8,17 @@ import { SessionStorageService } from 'ngx-webstorage';
   providedIn: 'root'
 })
 export class AuthService {
-  public isAuthenticated: boolean;
   private auth: Auth | null = null;
 
   constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) {
-    this.loadAuth();
-  }
-
-  loadAuth() {
     if (this.getAuth()) {
       this.auth = this.getAuth();
-      this.isAuthenticated = true;
     } else {
-      this.isAuthenticated = false;
     }
+  }
+
+  isAuthenticated(): boolean {
+    return this.auth !== null;
   }
 
   getAccessToken(xLogin, password) {
@@ -37,11 +34,15 @@ export class AuthService {
   setAuth(auth: Auth) {
     this.auth = auth;
     this.sessionStorageService.store('auth', auth);
-    this.isAuthenticated = true;
   }
 
   getAuth(): Auth {
     return this.sessionStorageService.retrieve('auth');
+  }
+
+  removeAuth(): void {
+    this.auth = null;
+		return this.sessionStorageService.clear();
   }
 
   getExtratoPositivoNegativo() {
