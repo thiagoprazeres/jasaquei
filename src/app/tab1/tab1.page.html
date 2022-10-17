@@ -1,27 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Extrato
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Extrato</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <ion-text>
+      <p>Olá, {{auth?.xPessoa}}</p>
+    </ion-text>
+  </div>
+  <div class="ion-text-center">
+    <ion-text class="ion-margin-end">
+      <p>Meu saldo</p>
+      <h2>{{saldo}}</h2>
+    </ion-text>
+  </div>
+  <ion-text class="ion-text-center ion-margin-start">
+    <h2>Extrato</h2>
+  </ion-text>
   <ion-grid class="ion-text-center">
     <ion-row>
       <ion-col>
-        <ion-text>
+        <ion-text color="success">
           <p>Entrada</p>
           <h2>{{extratoPositivoNegativo?.outSaldoNegativo}}</h2>
         </ion-text>
       </ion-col>
       <ion-col>
-        <ion-text>
+        <ion-text color="danger">
           <p>Saída</p>
           <h2>{{extratoPositivoNegativo?.outSaldoPositivo}}</h2>
         </ion-text>

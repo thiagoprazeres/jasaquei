@@ -45,6 +45,16 @@ export class AuthService {
 		return this.sessionStorageService.clear();
   }
 
+  getSaldo() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-pessoa': this.auth.xPessoa,
+        'Authorization': 'Bearer ' + this.auth.token
+      })
+    };
+    return this.http.get(environment.webapiurl + '/Saldo', httpOptions);
+  }
+
   getExtratoPositivoNegativo() {
     const httpOptions = {
       headers: new HttpHeaders({
