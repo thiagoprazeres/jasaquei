@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Auth } from '../interfaces/auth';
-import { SessionStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 export class AuthService {
   private auth: Auth | null = null;
 
-  constructor(private http: HttpClient, private sessionStorageService: SessionStorageService) {
+  constructor(private http: HttpClient) {
     if (this.getAuth()) {
       this.auth = this.getAuth();
     } else {
@@ -33,35 +32,27 @@ export class AuthService {
 
   setAuth(auth: Auth) {
     this.auth = auth;
-    this.sessionStorageService.store('auth', auth);
+    sessionStorage.setItem('auth', JSON.stringify(auth));
   }
 
   getAuth(): Auth {
-    return this.sessionStorageService.retrieve('auth');
+    return JSON.parse(sessionStorage.getItem('auth'));
   }
 
   removeAuth(): void {
     this.auth = null;
-		return this.sessionStorageService.clear();
+    return sessionStorage.clear();
   }
 
   getSaldo() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'x-pessoa': this.auth.xPessoa,
-        'Authorization': 'Bearer ' + this.auth.token
-      })
-    };
-    return this.http.get(environment.webapiurl + '/Saldo', httpOptions);
+    return this.http.get(environment.webapiurl + '/Saldo');
   }
 
   getExtratoPositivoNegativo() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'x-pessoa': this.auth.xPessoa,
         'x-dtinicio': '08/09/2022',
-        'x-dtfim': '08/09/2022',
-        'Authorization': 'Bearer ' + this.auth.token
+        'x-dtfim': '08/09/2022'
       })
     };
     return this.http.get(environment.webapiurl + '/ExtratoPositivoNegativo', httpOptions);
