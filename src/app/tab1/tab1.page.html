@@ -7,7 +7,7 @@
   <div class="ion-text-center">
     <ion-text class="ion-margin-end">
       <p>Meu saldo</p>
-      <h2>{{saldo}}</h2>
+      <h2>{{saldo | currency}}</h2>
     </ion-text>
   </div>
   <ion-text class="ion-text-center ion-margin-start">
@@ -18,13 +18,13 @@
       <ion-col>
         <ion-text color="success">
           <p>Entrada</p>
-          <h2>{{extratoPositivoNegativo?.outSaldoNegativo}}</h2>
+          <h2>{{extratoPositivoNegativo?.outSaldoNegativo | currency}}</h2>
         </ion-text>
       </ion-col>
       <ion-col>
         <ion-text color="danger">
           <p>Saída</p>
-          <h2>{{extratoPositivoNegativo?.outSaldoPositivo}}</h2>
+          <h2>{{extratoPositivoNegativo?.outSaldoPositivo | currency}}</h2>
         </ion-text>
       </ion-col>
     </ion-row>
