@@ -30,7 +30,8 @@
                 "output": "./svg"
               },
               "src/manifest.webmanifest",
-              "src/_redirects"
+              "src/_redirects",
+              "src/openapi.yaml"
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": [],
@@ -114,7 +115,8 @@
                 "output": "/assets"
               },
               "src/manifest.webmanifest",
-              "src/_redirects"
+              "src/_redirects",
+              "src/openapi.yaml"
             ]
           },
           "configurations": {
