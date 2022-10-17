@@ -1,0 +1,148 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Saquei API",
+    "description": "Saque via PIX!",
+    "contact": {
+      "email": "thiagoprazeres@gmail.com"
+    },
+    "version": "1.0.00"
+  },
+  "servers": [
+    {
+      "url": "https://api.jasaquei.com.br/"
+    }
+  ],
+  "paths": {
+    "/GetAccessTokenWebMobile": {
+      "get": {
+        "summary": "Login",
+        "parameters": [
+          {
+            "name": "x-login",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "x-password",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Acesso negado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExtratoPositivoNegativo": {
+      "get": {
+        "summary": "Tela principal",
+        "parameters": [
+          {
+            "name": "x-pessoa",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "x-dtinicio",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "x-dtfim",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Extrato positivo e negativo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "outSaldoPositivo": {
+                      "type": "number"
+                    },
+                    "outSaldoNegativo": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Erro pessoa, Erro data inicio, Erro data fim"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Token not found"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
