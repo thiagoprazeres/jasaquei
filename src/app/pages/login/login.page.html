@@ -1,37 +1,49 @@
 <ion-content>
-  <div class="ion-padding">
-    <ion-text>
-      <h1>Saquei</h1>
-    </ion-text>
-  </div>
   <form [formGroup]="loginForm" (ngSubmit)="loading = true;login()">
-    <ion-item>
-      <ion-label position="fixed">Login</ion-label>
-      <ion-input name="xLogin" formControlName="xLogin" type="text" maxlength="120" required></ion-input>
-      <ion-note *ngIf="xLogin.invalid && (xLogin.dirty || xLogin.touched) && xLogin.errors?.['required']" slot="error">Campo
-        obrigatório</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label position="fixed">Senha</ion-label>
-      <ion-input id="password" name="password" formControlName="password" type="password" maxlength="120" required>
-      </ion-input>
-      <ion-note *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.['required']"
-        slot="error">Campo obrigatório</ion-note>
-    </ion-item>
-    <div class="ion-padding">
-      <p class="ion-text-center" *ngIf="mensagem != ''">
-        <ion-text color="danger">
-          <ion-icon name="warning"></ion-icon> {{mensagem}}
-        </ion-text>
-      </p>
-      <ion-button type="submit" expand="block" color="primary"
-        [disabled]="loading || (loginForm.touched && loginForm.invalid)">{{!loading ? 'Entrar' : 'Entrando'}}
-      </ion-button>
-    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="ion-text-center">
+            <img src="assets/logo.svg" alt="Saquei" height="64">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="fixed" color="primary">Login</ion-label>
+            <ion-input name="xLogin" formControlName="xLogin" type="text" maxlength="120" required></ion-input>
+            <ion-note *ngIf="xLogin.invalid && (xLogin.dirty || xLogin.touched) && xLogin.errors?.['required']"
+              slot="error">Campo
+              obrigatório</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label position="fixed" color="primary">Senha</ion-label>
+            <ion-input id="password" name="password" formControlName="password" type="password" maxlength="120"
+              required>
+            </ion-input>
+            <ion-note *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.['required']"
+              slot="error">Campo obrigatório</ion-note>
+          </ion-item>
+          <p class="ion-text-center" *ngIf="mensagem != ''">
+            <ion-text color="danger">
+              <ion-icon name="warning"></ion-icon> {{mensagem}}
+            </ion-text>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" expand="block" color="primary"
+            [disabled]="loading || (loginForm.touched && loginForm.invalid)">{{!loading ? 'Entrar' : 'Entrando'}}
+          </ion-button>
+          <div class="ion-padding ion-text-center">
+            <ion-text>
+              <a href="https://jasaquei.com.br/" target="_blank">Precisa de ajuda?</a>
+            </ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
-  <div class="ion-padding">
-    <ion-text>
-      <a href="https://jasaquei.com.br/" target="_blank">Precisa de ajuda?</a>
-    </ion-text>
-  </div>
 </ion-content>

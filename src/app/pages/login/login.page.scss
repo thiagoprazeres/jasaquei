@@ -1,4 +1,24 @@
+ion-content {
+    --background: url(../../../assets/bg.svg) no-repeat 75% 166% / 250%;
+}
+
 a {
     color: var(--ion-color-medium);
     text-decoration: none;
+}
+
+ion-grid, form {
+    height: 100%;
+}
+ion-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    height: 33%;
+}
+ion-row:first-child {
+    align-items: center;
+}
+ion-row:last-child{
+    align-items: end;
 }
