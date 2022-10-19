@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export interface Token {
   token: string;
+  usuario: string;
 }
 
 @Component({
@@ -33,7 +34,8 @@ export class LoginPage implements OnInit {
 
   login() {
     this.authService.getAccessToken(this.loginForm.value.xLogin, this.loginForm.value.password).subscribe((data: Token) => {
-      const auth: Auth = {token: data.token, xPessoa: this.loginForm.value.xLogin};
+      console.log(data);
+      const auth: Auth = {token: data.token, xPessoa: this.loginForm.value.xLogin, usuario: data.usuario};
       this.authService.setAuth(auth);
       this.router.navigateByUrl('/tabs/tab1');
     }, (error) => {

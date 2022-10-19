@@ -32,6 +32,8 @@ paths:
                 properties:
                   token:
                     type: string
+                  usuario:
+                    type: string
         '401':
           description: Acesso negado
           content:
