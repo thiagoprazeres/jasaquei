@@ -1,9 +1,13 @@
-<ion-content class="ion-text-center" [fullscreen]="true">
-  <div class="ion-padding">
+<ion-content class="ion-text-center ion-padding" [fullscreen]="true">
+  <div class="ion-padding-start ion-margin-start">
     <ion-text color="light">
       <p><small>Olá, <strong>{{auth?.usuario}}</strong></small></p>
     </ion-text>
   </div>
+  <ion-text color="light" class="ion-margin-end">
+    <h1 class="ion-no-margin">{{saldo | currency}}</h1>
+    <p class="ion-no-margin"><small>Meu saldo</small></p>
+  </ion-text>
   <ion-grid class="ion-margin-vertical">
     <ion-row>
       <ion-col>
@@ -14,10 +18,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-text color="light" class="ion-margin-vertical">
-    <h1 class="ion-no-margin">{{saldo | currency}}</h1>
-    <p class="ion-no-margin"><small>Meu saldo</small></p>
-  </ion-text>
   <ion-card>
     <ion-card-header>
       <ion-card-title>Extrato</ion-card-title>
@@ -50,4 +50,7 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+  <div class="ion-padding" *ngIf="apiLoaded | async">
+    <google-map height="300" width="100%"></google-map>
+  </div>
 </ion-content>
