@@ -1,32 +1,53 @@
-<ion-content [fullscreen]="true">
+<ion-content class="ion-text-center" [fullscreen]="true">
   <div class="ion-padding">
-    <ion-text>
-      <p>Olá, {{auth?.usuario}}</p>
+    <ion-text color="light">
+      <p><small>Olá, <strong>{{auth?.usuario}}</strong></small></p>
     </ion-text>
   </div>
-  <div class="ion-text-center">
-    <ion-text class="ion-margin-end">
-      <p>Meu saldo</p>
-      <h2>{{saldo | currency}}</h2>
-    </ion-text>
-  </div>
-  <ion-text class="ion-text-center ion-margin-start">
-    <h2>Extrato</h2>
-  </ion-text>
-  <ion-grid class="ion-text-center">
+  <ion-grid class="ion-margin-vertical">
     <ion-row>
       <ion-col>
-        <ion-text color="success">
-          <p>Entrada</p>
-          <h2>{{extratoPositivoNegativo?.outSaldoNegativo | currency}}</h2>
-        </ion-text>
+        <ion-button color="tertiary" expand="block">Fazer pagamento</ion-button>
       </ion-col>
       <ion-col>
-        <ion-text color="danger">
-          <p>Saída</p>
-          <h2>{{extratoPositivoNegativo?.outSaldoPositivo | currency}}</h2>
-        </ion-text>
+        <ion-button color="light" expand="block">Resgatar Saldo</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-text color="light" class="ion-margin-vertical">
+    <h1 class="ion-no-margin">{{saldo | currency}}</h1>
+    <p class="ion-no-margin"><small>Meu saldo</small></p>
+  </ion-text>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Extrato</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-text color="success">
+              <p>Entrada</p>
+              <h2>{{extratoPositivoNegativo?.outSaldoNegativo | currency}}</h2>
+            </ion-text>
+          </ion-col>
+          <ion-col>
+            <ion-text color="danger">
+              <p>Saída</p>
+              <h2>{{extratoPositivoNegativo?.outSaldoPositivo | currency}}</h2>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-chip color="light">1Dia</ion-chip>
+            <ion-chip color="light">7Dias</ion-chip>
+            <ion-chip color="primary">30Dias</ion-chip>
+            <ion-chip color="light">6 meses</ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
